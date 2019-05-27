@@ -4,16 +4,17 @@ using Hamburgueria.MVC.Models;
 
 namespace Hamburgueria.MVC.Repositorios {
     public class PedidoRepositorio {
+        private const string PATH = "Database/Pedidos.csv";
         public bool Inserir (Pedido pedido) {
             try {
 
-                if (!File.Exists ("Database/Pedido.csv")) {
-                    File.Create ("Database/Pedido.csv").Close ();
+                if (!File.Exists (PATH)) {
+                    File.Create (PATH).Close ();
                 }
-                var registro = $"{pedido.Id};{pedido.Cliente.Nome};{pedido.Cliente.Telefone};{pedido.Cliente.Endereco};{pedido.Cliente.Email};{pedido.Hamburguer.Nome};{pedido.Shake.Nome};{pedido.DataPedido}\n";
+                var registro = $"{pedido.Id};{pedido.Cliente.Nome};{pedido.Cliente.Telefone};{pedido.Cliente.Endereco};{pedido.Cliente.Email};{pedido.Hamburguer.Nome};{pedido.Hamburguer.Preco};{pedido.Shake.Nome};{pedido.Shake.Preco};{pedido.DataPedido};{pedido.PrecoTotal}\n";
 
-                File.AppendAllText ("Database/Pedido.csv", registro);
-                
+                File.AppendAllText (PATH, registro);
+
             } catch (Exception e) {
 
                 System.Console.WriteLine ("Chegou no catch!");
